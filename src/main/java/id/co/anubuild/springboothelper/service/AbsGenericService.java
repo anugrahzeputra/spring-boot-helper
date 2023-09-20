@@ -6,26 +6,26 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
-public abstract class IGenericService<T, ID, REPO extends IGenericRepository<T, ID>> {
+public abstract class AbsGenericService<T, ID, REPO extends IGenericRepository<T, ID>> {
 
     private final REPO repo;
 
-    protected IGenericService(REPO repo) {
+    protected AbsGenericService(REPO repo) {
         this.repo = repo;
     }
 
     T saveOrUpdate(T t) {
         return repo.save(t);
-    };
+    }
     T getById(ID id) {
         return repo.findById(id).orElse(null);
-    };
+    }
     List<T> getAll() {
         return repo.findAll();
-    };
+    }
     Page<T> getAllWithPagination(int page, int load) {
         return repo.findAll(PageRequest.of(page, load));
-    };
+    }
     Boolean delete(T t) {
         try {
             repo.delete(t);
@@ -33,6 +33,6 @@ public abstract class IGenericService<T, ID, REPO extends IGenericRepository<T, 
         } catch (Exception e) {
             return false;
         }
-    };
+    }
 
 }
